@@ -1,0 +1,79 @@
+<div class="container">
+  <div class="form-container">
+    <form [formGroup]="studentForm">
+      <mat-form-field  class="form-field" appearance="outline">
+        <mat-label>Name</mat-label>
+        <input type="text" matInput formControlName="firstName">
+        <mat-error *ngIf="studentForm.get('firstName')?.invalid && (studentForm.get('firstName')?.dirty || studentForm.get('firstName')?.touched)">
+          Please enter a name
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field  class="form-field" appearance="outline">
+        <mat-label>Date Of birth</mat-label>
+        <input matInput formControlName="dateOfBirth" [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="studentForm.get('dateOfBirth')?.invalid && (studentForm.get('dateOfBirth')?.dirty || studentForm.get('dateOfBirth')?.touched)">
+        Please select date of birth
+      </mat-error>
+      </mat-form-field>
+      <mat-form-field  class="form-field" appearance="outline">
+        <mat-label>Semester</mat-label>
+        <mat-select formControlName="semester">
+          <mat-option value="">Please select semester</mat-option>
+          <mat-option value="1">1</mat-option>
+          <mat-option value="2">2</mat-option>
+          <mat-option value="3">3</mat-option>
+          <mat-option value="4">4</mat-option>
+        </mat-select>
+        <mat-error *ngIf="studentForm.get('semester')?.invalid && (studentForm.get('semester')?.dirty || studentForm.get('semester')?.touched)">
+          Please select semester
+        </mat-error>
+      </mat-form-field>
+      <div class="checkboxs">
+        <mat-label>Courses</mat-label>
+        <ul class="boxList">
+          <li> <mat-checkbox value="api"  (change)="onCheckboxChange($event)">API</mat-checkbox></li>
+          <li> <mat-checkbox value="angular"  (change)="onCheckboxChange($event)">angular</mat-checkbox></li>
+          <li><mat-checkbox value="node"  (change)="onCheckboxChange($event)">node</mat-checkbox></li>
+          <li> <mat-checkbox value="aws"  (change)="onCheckboxChange($event)">aws</mat-checkbox></li>
+        </ul>
+      </div>
+      <mat-form-field  class="form-field" appearance="outline">
+        <mat-label>Additional Notes</mat-label>
+        <input type="text" matInput formControlName="notes">
+      </mat-form-field>
+      <div class="text-center">
+        <button mat-raised-button color="primary" (click)="saveStudent()" [disabled]="!studentForm.valid">Save</button>
+      </div>
+    </form>
+   
+  </div>
+  <ng-container>
+    <mat-table [dataSource]="students" matSort>
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+        <mat-cell *matCellDef="let e"> {{e.name}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="dateOfBirth">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Date Of Birth </mat-header-cell>
+        <mat-cell *matCellDef="let e"> {{e.dateOfBirth | date}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="semester">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> semester </mat-header-cell>
+        <mat-cell *matCellDef="let e"> {{e.semester}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="courses">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> courses </mat-header-cell>
+        <mat-cell *matCellDef="let e"> {{e.courses}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="notes">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> notes </mat-header-cell>
+        <mat-cell *matCellDef="let e"> {{e.notes}} </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+    </mat-table>
+  </ng-container>
+</div>

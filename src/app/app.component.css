@@ -1,0 +1,19 @@
+.container {
+  text-align: center;
+}
+
+.form-container {
+  width: 250px;
+  margin: 50px auto;
+}
+
+.form-field {
+  display: block;
+}
+.checkboxs {
+  display: block;
+}
+.boxList {
+  list-style-type: none;
+  margin-top: 4px;
+}
